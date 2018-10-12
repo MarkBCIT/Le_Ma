@@ -70,13 +70,13 @@ public class MainActivity extends AppCompatActivity {
                     for (int i = 0; i < toonJsonArray.length(); i++) {
                         JSONObject c = toonJsonArray.getJSONObject(i);
 
-                        String name = c.getString("Name");
-                        String capital = c.getString("Capital");
-                        String region = c.getString("Region");
-                        String population = c.getString("Population");
-                        String area = c.getString("Area");
-                        String borders = c.getString("Borders");
-                        String flag = c.getString("Flag");
+                        String name = c.getString("name");
+                        String capital = c.getString("capital");
+                        String region = c.getString("region");
+                        String population = c.getString("population");
+                        String area = c.getString("area");
+                        String borders = c.getString("borders");
+                        String flag = c.getString("flag");
 
                         // tmp hash map for single contact
                         Country country = new Country();
