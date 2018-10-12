@@ -1,18 +1,24 @@
 package ca.bcit.ass1.le_ma;
 
+
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.ImageView;
+
+import com.larvalabs.svgandroid.SVG;
+import com.larvalabs.svgandroid.SVGParser;
 
 import java.io.InputStream;
 import java.lang.ref.WeakReference;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-class ImageDownloaderTask extends AsyncTask<String, Void, Bitmap> {
+class ImageDownloaderTask extends AsyncTask<String, Void, Drawable> {
     private final WeakReference<ImageView> imageViewReference;
 
     public ImageDownloaderTask(ImageView imageView) {
@@ -20,21 +26,21 @@ class ImageDownloaderTask extends AsyncTask<String, Void, Bitmap> {
     }
 
     @Override
-    protected Bitmap doInBackground(String... params) {
-        return downloadBitmap(params[0]);
+    protected Drawable doInBackground(String... params) {
+        return downloadDrawable(params[0]);
     }
 
     @Override
-    protected void onPostExecute(Bitmap bitmap) {
+    protected void onPostExecute(Drawable drawable) {
         if (isCancelled()) {
-            bitmap = null;
+            drawable = null;
         }
 
         if (imageViewReference != null) {
             ImageView imageView = imageViewReference.get();
             if (imageView != null) {
-                if (bitmap != null) {
-                    imageView.setImageBitmap(bitmap);
+                if (drawable != null) {
+                    imageView.setImageDrawable(drawable);
                 } else {
                     Drawable placeholder = imageView.getContext().getResources().getDrawable(R.drawable.placeholder);
                     imageView.setImageDrawable(placeholder);
@@ -43,7 +49,7 @@ class ImageDownloaderTask extends AsyncTask<String, Void, Bitmap> {
         }
     }
 
-    private Bitmap downloadBitmap(String url) {
+    private Drawable downloadDrawable(String url) {
         HttpURLConnection urlConnection = null;
         try {
             URL uri = new URL(url);
@@ -55,8 +61,14 @@ class ImageDownloaderTask extends AsyncTask<String, Void, Bitmap> {
 
             InputStream inputStream = urlConnection.getInputStream();
             if (inputStream != null) {
-                Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
-                return bitmap;
+                SVG svg = SVGParser. getSVGFromInputStream(inputStream);
+                Drawable drawable = svg.createPictureDrawable();
+//                Bitmap bitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
+//                Canvas canvas = new Canvas(bitmap);
+//                drawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
+//                drawable.draw(canvas);
+//                Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
+                return drawable;
             }
         } catch (Exception e) {
             urlConnection.disconnect();
