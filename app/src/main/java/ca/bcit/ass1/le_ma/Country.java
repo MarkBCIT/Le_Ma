@@ -14,7 +14,7 @@ public class Country {
 
     private String Borders;
 
-    private String Picture;
+    private String Flag;
 
 
     public String getName() {
@@ -65,11 +65,11 @@ public class Country {
         Borders = borders;
     }
 
-    public String getPicture() {
-        return Picture;
+    public String getFlag() {
+        return Flag;
     }
 
-    public void setPicture(String picture) {
-        Picture = picture;
+    public void setFlag(String flag) {
+        Flag = flag;
     }
 }

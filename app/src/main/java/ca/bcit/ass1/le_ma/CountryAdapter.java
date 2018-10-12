@@ -31,17 +31,17 @@ public class CountryAdapter extends ArrayAdapter<Country> {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.list_row_layout, parent, false);
         }
         // Lookup view for data population
-        TextView tvFirstName = (TextView) convertView.findViewById(R.id.firstName);
-        TextView tvLastName = (TextView) convertView.findViewById(R.id.lastName);
+        TextView tvName = (TextView) convertView.findViewById(R.id.Name);
+        TextView tvRegion = (TextView) convertView.findViewById(R.id.Region);
         // Populate the data into the template view using the data object
-        tvFirstName.setText(toon.getFirstName());
-        tvLastName.setText(toon.getLastName());
+        tvName.setText(country.getName());
+        tvRegion.setText(country.getRegion());
 
         ImageView imgOnePhoto = (ImageView) convertView.findViewById(R.id.thumbImage);
         //DownloadImageTask dit = new DownloadImageTask(_context, imgOnePhoto);
         //dit.execute(toon.getPicture());
-        if (toon.getPicture() != null) {
-            new ImageDownloaderTask(imgOnePhoto).execute(toon.getPicture());
+        if (country.getFlag() != null) {
+            new ImageDownloaderTask(imgOnePhoto).execute(country.getFlag());
         }
 
         // Return the completed view to render on screen
