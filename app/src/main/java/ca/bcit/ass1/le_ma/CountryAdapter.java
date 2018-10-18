@@ -37,12 +37,6 @@ public class CountryAdapter extends ArrayAdapter<Country> {
         tvName.setText(country.getName());
         tvRegion.setText(country.getRegion());
 
-        ImageView imgOnePhoto = (ImageView) convertView.findViewById(R.id.thumbImage);
-        //DownloadImageTask dit = new DownloadImageTask(_context, imgOnePhoto);
-        //dit.execute(toon.getPicture());
-        if (country.getFlag() != null) {
-            new ImageDownloaderTask(imgOnePhoto).execute(country.getFlag());
-        }
 
         // Return the completed view to render on screen
         return convertView;
