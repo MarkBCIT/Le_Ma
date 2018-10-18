@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">Le_Ma</string>
+    <string-array name="countries">
+        <item>Africa</item>
+        <item>America</item>
+        <item>Asia</item>
+        <item>Europe</item>
+        <item>Oceania</item>
+    </string-array>
 </resources>

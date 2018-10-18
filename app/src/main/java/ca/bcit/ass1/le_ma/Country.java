@@ -1,7 +1,9 @@
 package ca.bcit.ass1.le_ma;
 
 
+
 public class Country {
+
     private String Name;
 
     private String Capital;
@@ -72,4 +74,6 @@ public class Country {
     public void setFlag(String flag) {
         Flag = flag;
     }
+
+
 }

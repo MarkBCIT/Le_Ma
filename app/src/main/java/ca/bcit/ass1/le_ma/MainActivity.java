@@ -2,10 +2,13 @@ package ca.bcit.ass1.le_ma;
 
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -21,18 +24,34 @@ public class MainActivity extends AppCompatActivity {
     private ListView lv;
     // URL to get contacts JSON
     private static String SERVICE_URL = "https://restcountries.eu/rest/v2/all/";
-    private ArrayList<Country> countryList;
+    public static ArrayList<Country> africa;
+    public static ArrayList<Country> america;
+    public static ArrayList<Country> asia;
+    public static ArrayList<Country> europe;
+    public static ArrayList<Country> oceania;
+    public static String[] continents = {"Africa", "America", "Asia", "Europe", "Oceania"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        countryList = new ArrayList<Country>();
+        africa = new ArrayList<Country>();
+        america = new ArrayList<Country>();
+        asia = new ArrayList<Country>();
+        europe = new ArrayList<Country>();
+        oceania = new ArrayList<Country>();
         lv = (ListView) findViewById(R.id.countryList);
         new GetContacts().execute();
-
+        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                TopLevelActivity.cc = i;
+                Intent intent = new Intent(MainActivity.this, CountryActivity.class);
+                startActivity(intent);
+            }
+        });
     }
+
 
     /**
      * Async task class to get json by making HTTP call
@@ -49,6 +68,8 @@ public class MainActivity extends AppCompatActivity {
             pDialog.show();
 
         }
+
+
 
         @Override
         protected Void doInBackground(Void... arg0) {
@@ -68,6 +89,7 @@ public class MainActivity extends AppCompatActivity {
 
                     // looping through All Contacts
                     for (int i = 0; i < toonJsonArray.length(); i++) {
+
                         JSONObject c = toonJsonArray.getJSONObject(i);
 
                         String name = c.getString("name");
@@ -91,7 +113,23 @@ public class MainActivity extends AppCompatActivity {
                         country.setFlag(flag);
 
                         // adding contact to contact list
-                        countryList.add(country);
+                        if (region.equals("Africa")) {
+                            africa.add(country);
+                        }
+                        if (region.equals("Americas")) {
+                            america.add(country);
+                        }
+                        if (region.equals("Asia")) {
+                            asia.add(country);
+                        }
+                        if (region.equals("Europe")) {
+                            europe.add(country);
+                        }
+                        if (region.equals("Oceania")) {
+                            oceania.add(country);
+                        }
+
+
                     }
                 } catch (final JSONException e) {
                     Log.e(TAG, "Json parsing error: " + e.getMessage());
@@ -132,9 +170,22 @@ public class MainActivity extends AppCompatActivity {
                 pDialog.dismiss();
 
             //Toon[] toonArray = toonList.toArray(new Toon[toonList.size()]);
-
-            CountryAdapter adapter = new CountryAdapter(MainActivity.this, countryList);
-
+            CountryAdapter adapter = null;
+            if(TopLevelActivity.select==0) {
+                adapter = new CountryAdapter(MainActivity.this, africa);
+            }
+            if(TopLevelActivity.select==1) {
+                adapter = new CountryAdapter(MainActivity.this, america);
+            }
+            if(TopLevelActivity.select==2) {
+                adapter = new CountryAdapter(MainActivity.this, asia);
+            }
+            if(TopLevelActivity.select==3) {
+                adapter = new CountryAdapter(MainActivity.this, europe);
+            }
+            if(TopLevelActivity.select==4) {
+                adapter = new CountryAdapter(MainActivity.this, oceania);
+            }
             // Attach the adapter to a ListView
             lv.setAdapter(adapter);
         }
