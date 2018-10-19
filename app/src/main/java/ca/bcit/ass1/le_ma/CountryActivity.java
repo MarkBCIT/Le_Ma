@@ -5,32 +5,17 @@ import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-
 public class CountryActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_country);
-        Country country = null;
-        if (TopLevelActivity.select == 0) {
-            country = MainActivity.africa.get(TopLevelActivity.cc);
-        }
-        if (TopLevelActivity.select == 1) {
-            country = MainActivity.america.get(TopLevelActivity.cc);
-        }
-        if (TopLevelActivity.select == 2) {
-
-            country = MainActivity.asia.get(TopLevelActivity.cc);
-        }
-        if (TopLevelActivity.select == 3) {
-
-            country = MainActivity.europe.get(TopLevelActivity.cc);
-        }
-        if (TopLevelActivity.select == 4) {
-            country = MainActivity.oceania.get(TopLevelActivity.cc);
-        }
-
+        // get the food from the intent
+        int countryIndex = (Integer) getIntent().getExtras().get("index");
+        int continentIndex = (Integer) getIntent().getExtras().get("continentIndex");
+        String continent = Country.LIST_CONTINENTS[continentIndex];
+        Country country = Country.continents.get(continent).get(countryIndex);
 
         ImageView imgOnePhoto = (ImageView) findViewById(R.id.thumbImage);
         //DownloadImageTask dit = new DownloadImageTask(_context, imgOnePhoto);
@@ -53,8 +38,5 @@ public class CountryActivity extends AppCompatActivity {
 
         TextView borders = findViewById(R.id.Borders);
         borders.setText(country.getBorders());
-
-
     }
-
 }

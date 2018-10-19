@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
+    tools:context=".CountryDetailsActivity">
 
     <ImageView
         android:id="@+id/thumbImage"
@@ -15,28 +16,39 @@
     <TextView
         android:id="@+id/Name"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:text="@string/country" />
+
+    <TextView
+        android:id="@+id/Capital"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/capital" />
 
     <TextView
         android:id="@+id/Region"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:text="@string/region" />
 
     <TextView
         android:id="@+id/Population"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:text="@string/population" />
 
     <TextView
         android:id="@+id/Area"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:text="@string/area" />
 
     <TextView
         android:id="@+id/Borders"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-    \
+        android:layout_height="wrap_content"
+        android:text="@string/borders" />
+
 </LinearLayout>
 
 
