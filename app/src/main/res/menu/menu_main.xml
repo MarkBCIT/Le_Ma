@@ -12,7 +12,6 @@
         android:title="@string/my_device"
         android:icon="@drawable/ic_more_vert_black_24dp"
         android:orderInCategory="2"
-        app:showAsAction="never"
-        app:actionProviderClass="ca.bcit.ass1.le_ma.CustomActonProvider"/>
+        app:showAsAction="never" />
 
 </menu>

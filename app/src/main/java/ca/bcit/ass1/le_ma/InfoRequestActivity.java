@@ -50,18 +50,24 @@ public class InfoRequestActivity extends AppCompatActivity {
         ab.setDisplayHomeAsUpEnabled(true);
 
         TextView manufacturer = findViewById(R.id.manufacturer);
-        manufacturer.setText(manufacturer.getText() + " " + Build.MANUFACTURER);
+        String manufacturerText = manufacturer.getText() + " " + Build.MANUFACTURER;
+        manufacturer.setText(manufacturerText);
 
         TextView model = findViewById(R.id.model);
-        model.setText(model.getText() + " " + Build.MODEL);
+        String modelText = model.getText() + " " + Build.MODEL;
+        model.setText(modelText);
 
         TextView version = findViewById(R.id.version);
-        version.setText(version.getText() + " " + Build.VERSION.SDK_INT );
+        String versionText = version.getText() + " " + Build.VERSION.SDK_INT;
+        version.setText(versionText);
 
         TextView version_release = findViewById(R.id.version_release);
-        version_release.setText(version_release.getText() + " " + Build.VERSION.RELEASE );
+        String version_releaseText = version_release.getText() + " " + Build.VERSION.RELEASE ;
+        version_release.setText(version_releaseText);
 
         TextView serial = findViewById(R.id.serial);
-        serial.setText(serial.getText() + " " + Settings.Secure.getString(getApplicationContext().getContentResolver(), Settings.Secure.ANDROID_ID) );
+        String serialText = serial.getText() + " "
+                + Settings.Secure.getString(getApplicationContext().getContentResolver(), Settings.Secure.ANDROID_ID);
+        serial.setText(serialText);
     }
 }

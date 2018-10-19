@@ -42,13 +42,12 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu. This adds items to the app bar.
         MenuInflater menuInflater = getMenuInflater();
         menuInflater.inflate(R.menu.menu_main, menu);
 
         MenuItem menuItem = menu.findItem(R.id.action_share);
         shareActionProvider = (ShareActionProvider) MenuItemCompat.getActionProvider(menuItem);
-        setShareActionIntent("Join us on this vacation.");
+        setShareActionIntent("Home");
 
         return super.onCreateOptionsMenu(menu);
     }
@@ -99,15 +98,24 @@ public class MainActivity extends AppCompatActivity {
                         JSONObject c = countryJsonArray.getJSONObject(i);
 
                         String name = c.getString("name");
+                        String alpha3Code = c.getString("alpha3Code");
                         String capital = c.getString("capital");
                         String region = c.getString("region");
                         String population = c.getString("population");
                         String area = c.getString("area");
-                        String borders = c.getString("borders");
+                        JSONArray borders = c.getJSONArray("borders");
+                        ArrayList<String> borderArray = new ArrayList<String>();
                         String flag = c.getString("flag");
 
+                        if(!borders.isNull(0)) {
+                            int size = borders.length();
+                            for (int j = 0; j < size; j++) {
+                                borderArray.add(borders.getString(j));
+                            }
+                        }
+
                         Country country = new Country(
-                                name, capital, region, population, area, borders, flag
+                                name, alpha3Code, capital, region, population, area, borderArray.toArray(new String[borderArray.size()]), flag
                         );
 
                         if(!Country.continents.containsKey(region)) {
@@ -117,6 +125,7 @@ public class MainActivity extends AppCompatActivity {
                         }
 
                         Country.continents.get(region).add(country);
+                        Country.list_countries.put(alpha3Code, name);
                     }
                     hasCountryList = true;
 
@@ -131,7 +140,6 @@ public class MainActivity extends AppCompatActivity {
                                     .show();
                         }
                     });
-
                 }
             } else {
                 Log.e(TAG, "Couldn't get json from server.");

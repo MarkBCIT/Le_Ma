@@ -22,22 +22,29 @@ public class CountryActivity extends AppCompatActivity {
         //dit.execute(toon.getPicture());
 
         TextView name = findViewById(R.id.Name);
-        name.setText(name.getText() + " " + country.getName());
+        String nameText = name.getText() + " " + country.getName();
+        name.setText(nameText);
 
         TextView capital = findViewById(R.id.Capital);
-        capital.setText(capital.getText() + " " + country.getCapital());
+        String capitalText = capital.getText() + " " + country.getCapital();
+        capital.setText(capitalText);
 
         TextView region = findViewById(R.id.Region);
-        region.setText(region.getText() + " " + country.getRegion());
+        String regionText = region.getText() + " " + country.getRegion();
+        region.setText(regionText);
 
         TextView population = findViewById(R.id.Population);
-        population.setText(population.getText() + " " + country.getPopulation());
+        String populationText = population.getText() + " " + country.getPopulation();
+        population.setText(populationText);
 
         TextView area = findViewById(R.id.Area);
-        area.setText(area.getText() + " " + country.getArea());
+        String areaText = country.getArea().equals("null") ? area.getText() + " " + "No info"
+                : area.getText() + " " + country.getArea() + " km2";
+        area.setText(areaText);
 
         TextView borders = findViewById(R.id.Borders);
-        borders.setText(borders.getText() + " " + country.getBorders());
+        String bordersText = borders.getText() + " " + country.getBordersString();
+        borders.setText(bordersText);
 
         WebView flag = findViewById(R.id.thumbImage);
         flag.loadUrl(country.getFlag());
