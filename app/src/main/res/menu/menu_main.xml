@@ -9,9 +9,10 @@
         app:actionProviderClass="android.support.v7.widget.ShareActionProvider" />
 
     <item android:id="@+id/action_request_info"
-        android:title="@string/info_request_title"
-        android:icon="@drawable/ic_add_white_24dp"
+        android:title="@string/my_device"
+        android:icon="@drawable/ic_more_vert_black_24dp"
         android:orderInCategory="2"
-        app:showAsAction="ifRoom" />
+        app:showAsAction="never"
+        app:actionProviderClass="ca.bcit.ass1.le_ma.CustomActonProvider"/>
 
 </menu>

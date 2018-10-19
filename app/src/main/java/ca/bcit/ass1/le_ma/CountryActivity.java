@@ -2,8 +2,8 @@ package ca.bcit.ass1.le_ma;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.webkit.WebView;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 public class CountryActivity extends AppCompatActivity {
@@ -41,6 +41,10 @@ public class CountryActivity extends AppCompatActivity {
 
         WebView flag = findViewById(R.id.thumbImage);
         flag.loadUrl(country.getFlag());
-        flag.setInitialScale(80);
+        flag.getSettings().setUseWideViewPort(true);
+        flag.getSettings().setLoadWithOverviewMode(true);
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
     }
 }

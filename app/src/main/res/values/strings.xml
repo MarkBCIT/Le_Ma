@@ -3,6 +3,7 @@
     <string name="info_request">Request for information</string>
     <string name="info_request_title">Info Request</string>
     <string name="action_share">Share</string>
+    <string name="my_device">My Device</string>
     <string-array name="continents">
         <item>Africa</item>
         <item>America</item>
@@ -16,4 +17,10 @@
     <string name="population">Population: </string>
     <string name="area">Area: </string>
     <string name="borders">Borders: </string>
+
+    <string name="manufacturer">Manufacturer: </string>
+    <string name="model">Model: </string>
+    <string name="version">Version: </string>
+    <string name="version_release">Version Release: </string>
+    <string name="serial">Serial Number: </string>
 </resources>

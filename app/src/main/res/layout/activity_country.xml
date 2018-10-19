@@ -6,13 +6,12 @@
     android:orientation="vertical">
     tools:context=".CountryDetailsActivity">
 
+    <include layout="@layout/toolbar_main" android:id="@+id/toolbar" />
+
     <WebView
         android:id="@+id/thumbImage"
-        android:layout_width="500dp"
-        android:layout_height="500dp"
-        android:adjustViewBounds="true"
-        android:scaleType="centerCrop"
-        android:layout_gravity="fill" />
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 
     <TextView
         android:id="@+id/Name"

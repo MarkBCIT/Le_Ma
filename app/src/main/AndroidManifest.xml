@@ -29,7 +29,7 @@
 
         <activity
             android:name=".InfoRequestActivity"
-            android:label="@string/info_request"
+            android:label="@string/my_device"
             android:parentActivityName=".MainActivity" >
         </activity>
 
