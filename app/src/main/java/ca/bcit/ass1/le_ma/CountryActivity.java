@@ -2,6 +2,7 @@ package ca.bcit.ass1.le_ma;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -17,26 +18,29 @@ public class CountryActivity extends AppCompatActivity {
         String continent = Country.LIST_CONTINENTS[continentIndex];
         Country country = Country.continents.get(continent).get(countryIndex);
 
-        ImageView imgOnePhoto = (ImageView) findViewById(R.id.thumbImage);
         //DownloadImageTask dit = new DownloadImageTask(_context, imgOnePhoto);
         //dit.execute(toon.getPicture());
-        if (country.getFlag() != null) {
-            new ImageDownloaderTask(imgOnePhoto).execute(country.getFlag());
-        }
 
         TextView name = findViewById(R.id.Name);
-        name.setText(country.getName());
+        name.setText(name.getText() + " " + country.getName());
+
+        TextView capital = findViewById(R.id.Capital);
+        capital.setText(capital.getText() + " " + country.getCapital());
 
         TextView region = findViewById(R.id.Region);
-        region.setText(country.getRegion());
+        region.setText(region.getText() + " " + country.getRegion());
 
-        TextView pop = findViewById(R.id.Population);
-        pop.setText(country.getPopulation());
+        TextView population = findViewById(R.id.Population);
+        population.setText(population.getText() + " " + country.getPopulation());
 
         TextView area = findViewById(R.id.Area);
-        area.setText(country.getArea());
+        area.setText(area.getText() + " " + country.getArea());
 
         TextView borders = findViewById(R.id.Borders);
-        borders.setText(country.getBorders());
+        borders.setText(borders.getText() + " " + country.getBorders());
+
+        WebView flag = findViewById(R.id.thumbImage);
+        flag.loadUrl(country.getFlag());
+        flag.setInitialScale(80);
     }
 }

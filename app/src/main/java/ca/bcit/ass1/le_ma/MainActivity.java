@@ -3,9 +3,14 @@ package ca.bcit.ass1.le_ma;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.ShareActionProvider;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -18,25 +23,44 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
-    private String TAG = MainActivity.class.getSimpleName();
-    private ProgressDialog pDialog;
     // URL to get contacts JSON
     private static String SERVICE_URL = "https://restcountries.eu/rest/v2/all/";
+    private static boolean hasCountryList = false;
+
+    private String TAG = MainActivity.class.getSimpleName();
+
+    private ProgressDialog pDialog;
+    private ShareActionProvider shareActionProvider;
+
+    private void setShareActionIntent(String text) {
+        Intent inr = new Intent(Intent.ACTION_SEND);
+        inr.setType("text/plain");
+        inr.putExtra(Intent.EXTRA_TEXT, text);
+        shareActionProvider.setShareIntent(inr);
+    }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        ListView lv = findViewById(R.id.list_continents);
-        new GetContacts().execute();
-        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Intent intent = new Intent(MainActivity.this, CountryList.class);
-                intent.putExtra("index", (int) l);
-                startActivity(intent);
-            }
-        });
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu. This adds items to the app bar.
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+
+        MenuItem menuItem = menu.findItem(R.id.action_share);
+        shareActionProvider = (ShareActionProvider) MenuItemCompat.getActionProvider(menuItem);
+        setShareActionIntent("Join us on this vacation.");
+
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_request_info:
+                Intent i = new Intent(this, InfoRequestActivity.class);
+                startActivity(i);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     /**
@@ -92,6 +116,8 @@ public class MainActivity extends AppCompatActivity {
 
                         Country.continents.get(region).add(country);
                     }
+                    hasCountryList = true;
+
                 } catch (final JSONException e) {
                     Log.e(TAG, "Json parsing error: " + e.getMessage());
                     runOnUiThread(new Runnable() {
@@ -128,5 +154,26 @@ public class MainActivity extends AppCompatActivity {
             if (pDialog.isShowing())
                 pDialog.dismiss();
         }
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        if(!hasCountryList) {new GetContacts().execute(); };
+
+        ListView lv = findViewById(R.id.list_continents);
+        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Intent intent = new Intent(MainActivity.this, CountryList.class);
+                intent.putExtra("index", (int) l);
+                startActivity(intent);
+            }
+        });
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
     }
 }

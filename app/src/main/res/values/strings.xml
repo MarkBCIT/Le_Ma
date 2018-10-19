@@ -1,5 +1,8 @@
 <resources>
     <string name="app_name">Le_Ma</string>
+    <string name="info_request">Request for information</string>
+    <string name="info_request_title">Info Request</string>
+    <string name="action_share">Share</string>
     <string-array name="continents">
         <item>Africa</item>
         <item>America</item>
@@ -7,10 +10,10 @@
         <item>Europe</item>
         <item>Oceania</item>
     </string-array>
-    <string name="country">Country</string>
-    <string name="capital">Capital</string>
-    <string name="region">Region</string>
-    <string name="population">Population</string>
-    <string name="area">Area</string>
-    <string name="borders">Borders</string>
+    <string name="country">Country: </string>
+    <string name="capital">Capital: </string>
+    <string name="region">Region: </string>
+    <string name="population">Population: </string>
+    <string name="area">Area: </string>
+    <string name="borders">Borders: </string>
 </resources>
