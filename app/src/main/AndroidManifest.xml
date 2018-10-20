@@ -20,7 +20,8 @@
         </activity>
 
         <activity
-            android:name=".CountryActivity">
+            android:name=".CountryActivity"
+            android:label="@string/simple_country">
         </activity>
 
         <activity
